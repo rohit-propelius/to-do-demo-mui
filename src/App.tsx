@@ -1,4 +1,4 @@
-import {
+import React, {
   JSXElementConstructor,
   ReactElement,
   ReactFragment,
@@ -36,7 +36,7 @@ interface IReducerObj {
 interface IActionObj {
   type: string;
   value: string | {};
-  key: string | number;
+  key: number;
 }
 
 let reducerObj: IReducerObj = {
@@ -132,22 +132,24 @@ function App() {
   useEffect(() => {
     dispatch({
       type: 'SETDATA', value: arr,
-      key: ''
+      key: editVal.key
     })
     return () => {
       dispatch({
-        type: 'SETDATA', value: [],
-        key: ''
-      })
+        type: "SETDATA",
+        value: [],
+        key: editVal.key,
+      });
     };
   }, []);
 
   const addToList = () => {
     if (tBVal.length > 0) {
       dispatch({
-        type: 'ADD', value: tBVal,
-        key: ''
-      })
+        type: "ADD",
+        value: tBVal,
+        key: editVal.key
+      });
       setTBVal("");
     }
   };
@@ -167,33 +169,37 @@ function App() {
 
   const completeToDo = (key: any) => {
     dispatch({
-      type: 'COMPLETE', value: key,
-      key: ''
-    })
+      type: "COMPLETE",
+      value: key,
+      key: editVal.key,
+    });
   };
 
   const removeToDo = (key: any) => {
     dispatch({
-      type: 'REMOVE', value: key,
-      key: ''
-    })
+      type: "REMOVE",
+      value: key,
+      key: editVal.key,
+    });
   };
 
   const RemoveFromList = () => {
     dispatch({
-      type: 'REMOVEALL', value: tBVal,
-      key: ''
-    })
+      type: "REMOVEALL",
+      value: tBVal,
+      key: editVal.key,
+    });
   };
 
-  const formHandler = (e: { preventDefault: () => void }) => {
+  const formHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    let searchVal: any = document.getElementById("q");
-    if (!!searchVal) searchVal = searchVal.nodeValue;
+    let searchVal: any = document.getElementById("q")
+    if (!!searchVal) searchVal = searchVal.value
     dispatch({
-      type: 'FILTER', value: searchVal,
-      key: ''
-    })
+      type: "FILTER",
+      value: searchVal,
+      key: editVal.key,
+    });
   };
 
   return (
