@@ -48,8 +48,7 @@ function App() {
     }
   };
 
-  const getEditValue = (key: string | number) => {
-    key = typeof key === "string" ? parseInt(key) : key;
+  const getEditValue = (key: number) => {
     setEditVal({
       key: key,
       value: state.todos[key]
@@ -61,7 +60,7 @@ function App() {
     dispatch({type: 'EDIT', key: val.key, value: val.value})
   };
 
-  const completeToDo = (key: any) => {
+  const completeToDo = (key: number) => {
     dispatch({
       type: "COMPLETE",
       value: key,
@@ -69,7 +68,7 @@ function App() {
     });
   };
 
-  const removeToDo = (key: any) => {
+  const removeToDo = (key: number) => {
     dispatch({
       type: "REMOVE",
       value: key,
@@ -191,15 +190,7 @@ function App() {
         <div className="column">
           {state.filterdData.map(
             (
-              val:
-                | string
-                | number
-                | boolean
-                | ReactElement<any, string | JSXElementConstructor<any>>
-                | ReactFragment
-                | ReactPortal
-                | null
-                | undefined,
+              val:string,
               key: number
             ) => {
               return (
