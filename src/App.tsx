@@ -4,7 +4,7 @@ import React, {
   useState,
 } from "react";
 import "./App.css";
-import { arr } from "./data/data";
+import { arr, ACTIONS as AC } from "./data/data";
 import { reducer } from "./reducer/app";
 
 let reducerObj: IReducerObj = {
@@ -21,12 +21,12 @@ function App() {
 
   useEffect(() => {
     dispatch({
-      type: 'SETDATA', value: arr,
+      type: AC.SETDATA, value: arr,
       key: editVal.key
     })
     return () => {
       dispatch({
-        type: "SETDATA",
+        type: AC.SETDATA,
         value: [],
         key: editVal.key,
       });
@@ -36,9 +36,9 @@ function App() {
   const addToList = () => {
     if (tBVal.length > 0) {
       dispatch({
-        type: "ADD",
+        type: AC.ADD,
         value: tBVal,
-        key: editVal.key
+        key: editVal.key,
       });
       setTBVal("");
     }
@@ -53,12 +53,12 @@ function App() {
 
   const editToDo = () => {
     let val = editVal;
-    dispatch({type: 'EDIT', key: val.key, value: val.value})
+    dispatch({type: AC.EDIT, key: val.key, value: val.value})
   };
 
   const completeToDo = (key: number) => {
     dispatch({
-      type: "COMPLETE",
+      type: AC.COMPLETE,
       value: key,
       key: editVal.key,
     });
@@ -66,7 +66,7 @@ function App() {
 
   const removeToDo = (key: number) => {
     dispatch({
-      type: "REMOVE",
+      type: AC.REMOVE,
       value: key,
       key: editVal.key,
     });
@@ -74,7 +74,7 @@ function App() {
 
   const RemoveFromList = () => {
     dispatch({
-      type: "REMOVEALL",
+      type: AC.REMOVEALL,
       value: tBVal,
       key: editVal.key,
     });
@@ -85,7 +85,7 @@ function App() {
     let searchVal: any = document.getElementById("q")
     if (!!searchVal) searchVal = searchVal.value
     dispatch({
-      type: "FILTER",
+      type: AC.FILTER,
       value: searchVal,
       key: editVal.key,
     });
