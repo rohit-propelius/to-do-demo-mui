@@ -78,6 +78,8 @@ function App() {
       value: tBVal,
       key: editVal.key,
     });
+    setTBVal('')
+    setEditVal({key: NaN, value: ''})
   };
 
   const formHandler = (e: React.FormEvent) => {
