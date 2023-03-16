@@ -8,23 +8,8 @@ import React, {
   useState,
 } from "react";
 import "./App.css";
-
-const arr = [
-  "Drink tea",
-  "Make Breakfast",
-  "Make Bed",
-  "Pack lunch",
-  "Put clothes for laundry",
-];
-
-const filterFun = (arr: any[], findVal: any) => {
-  let filter = arr.filter((val: string) => {
-    let regEx = new RegExp(`${findVal}`, "gi");
-    let matchVal = val.match(regEx);
-    if (!!matchVal) return val;
-  });
-  return filter;
-};
+import { arr } from "./data/data";
+import { reducer } from "./reducer/app";
 
 let reducerObj: IReducerObj = {
   count: 0,
@@ -33,86 +18,9 @@ let reducerObj: IReducerObj = {
   filterdData: [],
 };
 
-const reducer = (state: IReducerObj, action: IActionObj): IReducerObj => {
-  let returnObj: IReducerObj = { ...state };
-  switch (action.type) {
-    case "SETDATA":
-      returnObj = {
-        ...state,
-        todos: Array.isArray(action.value) ? action.value : [],
-      };
-      break;
-    case "ADD":
-      if (typeof action.value === "string") {
-        returnObj = {
-          ...state,
-          todos: [...state.todos, action.value],
-        };
-      }
-      break;
-    case "EDIT":
-      if (!!action.value && typeof action.value === "string") {
-        let key: number | string = action.key;
-        if (typeof key === "string") key = parseInt(key);
-        state.todos[key] = action.value;
-      }
-
-      returnObj = {
-        ...state,
-      };
-      break;
-    case "COMPLETE":
-      returnObj = {
-        ...state,
-        completed: [
-          ...state.completed,
-          state.todos.find((val: string, key: number) => key === action.value)!,
-        ],
-        todos: state.todos.filter(
-          (val: string, key: number) => key !== action.value
-        ),
-      };
-      break;
-    case "REMOVE":
-      returnObj = {
-        ...state,
-        count: state.count + 1,
-        todos: state.todos.filter(
-          (val: string, key: number) => key !== action.value
-        ),
-      };
-      break;
-    case "REMOVEALL":
-      returnObj = {
-        count: 0,
-        todos: [],
-        completed: [],
-        filterdData: [],
-      };
-      break;
-    case "FILTER":
-      returnObj = {
-        ...state,
-        filterdData: filterFun(state.todos, action.value),
-      };
-      break;
-    default:
-      returnObj = {
-        ...state,
-      };
-  }
-  return returnObj;
-};
-
-interface IDispatchType {
-  type: string;
-  value: {} | string | number;
-}
-
 function App() {
   const [tBVal, setTBVal] = useState("");
   const [editVal, setEditVal] = useState({ key: NaN, value: "" });
-  // const [state, dispatch] = useReducer(reducer, {count: 0, todos:[], completed:[], filterdData:[]})
   const [state, dispatch] = useReducer(reducer, reducerObj);
 
   useEffect(() => {
