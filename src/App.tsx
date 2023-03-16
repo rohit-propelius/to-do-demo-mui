@@ -48,6 +48,7 @@ let reducerObj: IReducerObj = {
 
 const reducer = (state: IReducerObj, action: IActionObj): IReducerObj => {
   let returnObj: IReducerObj = { ...state };
+  console.log('state : :: :: ', action)
   switch (action.type) {
     case "SETDATA":
       returnObj = {
@@ -152,7 +153,7 @@ function App() {
   };
 
   const getEditValue = (key: string | number) => {
-    key = typeof key === "string" ? parseInt(key) : NaN;
+    key = typeof key === "string" ? parseInt(key) : key;
     setEditVal({
       key: key,
       value: state.todos[key]
@@ -251,15 +252,7 @@ function App() {
         <div className="column">
           {state.todos.map(
             (
-              val:
-                | string
-                | number
-                | boolean
-                | ReactElement<any, string | JSXElementConstructor<any>>
-                | ReactFragment
-                | ReactPortal
-                | null
-                | undefined,
+              val: string,
               key: number
             ) => {
               return (
@@ -280,15 +273,7 @@ function App() {
         <div className="column">
           {state.completed.map(
             (
-              val:
-                | string
-                | number
-                | boolean
-                | ReactElement<any, string | JSXElementConstructor<any>>
-                | ReactFragment
-                | ReactPortal
-                | null
-                | undefined,
+              val: string,
               key: number
             ) => {
               return (
