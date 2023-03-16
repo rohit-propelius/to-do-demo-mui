@@ -26,19 +26,6 @@ const filterFun = (arr: any[], findVal: any) => {
   return filter;
 };
 
-interface IReducerObj {
-  count: number;
-  todos: string[];
-  completed: string[];
-  filterdData: string[];
-}
-
-interface IActionObj {
-  type: string;
-  value: string | {};
-  key: number;
-}
-
 let reducerObj: IReducerObj = {
   count: 0,
   todos: [],
@@ -48,7 +35,6 @@ let reducerObj: IReducerObj = {
 
 const reducer = (state: IReducerObj, action: IActionObj): IReducerObj => {
   let returnObj: IReducerObj = { ...state };
-  console.log('state : :: :: ', action)
   switch (action.type) {
     case "SETDATA":
       returnObj = {
