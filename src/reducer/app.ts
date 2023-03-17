@@ -35,10 +35,10 @@ export const reducer = (state: IReducerObj, action: IActionObj): IReducerObj => 
         ...state,
         completed: [
           ...state.completed,
-          state.todos.find((val: string, key: number) => key === action.value)!,
+          state.todos.find((val: string, key: number) => key === action.key)!,
         ],
         todos: state.todos.filter(
-          (val: string, key: number) => key !== action.value
+          (val: string, key: number) => key !== action.key
         ),
       };
       break;
@@ -47,7 +47,7 @@ export const reducer = (state: IReducerObj, action: IActionObj): IReducerObj => 
         ...state,
         count: state.count + 1,
         todos: state.todos.filter(
-          (val: string, key: number) => key !== action.value
+          (val: string, key: number) => key !== action.key
         ),
       };
       break;

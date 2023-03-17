@@ -81,26 +81,22 @@ function App() {
     dispatch({
       type: AC.COMPLETE,
       value: key,
-      key: editVal.key,
+      key: key,
     });
   };
 
   const removeToDo = (key: number) => {
     dispatch({
       type: AC.REMOVE,
-      value: key,
-      key: editVal.key,
+      key: key,
     });
   };
 
   const RemoveFromList = () => {
     dispatch({
-      type: AC.REMOVEALL,
-      value: tBVal,
-      key: editVal.key,
+      type: AC.REMOVEALL
     });
-    setTBVal('')
-    setEditVal({key: NaN, value: ''})
+    globalStateVal.values = {}
   };
 
   const setGlobalStateValFn = (e: ChangeEvent<HTMLInputElement>) => {
@@ -122,8 +118,7 @@ function App() {
     if (!!searchVal) searchVal = searchVal.value
     dispatch({
       type: AC.FILTER,
-      value: searchVal,
-      key: editVal.key,
+      value: searchVal
     });
   };
 
@@ -149,6 +144,7 @@ function App() {
             type="textbox"
             placeholder="Enter new task"
             name="taskbox"
+            value={globalStateVal.values["taskbox"]?.value || ''}
             onChange={setGlobalStateValFn}
           />
         </div>
