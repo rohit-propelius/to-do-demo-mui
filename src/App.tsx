@@ -1,4 +1,5 @@
 import React, {
+  ChangeEvent,
   useEffect,
   useReducer,
   useState,
@@ -14,31 +15,37 @@ let reducerObj: IReducerObj = {
   filterdData: [],
 };
 
+let globalStateObj : IGlobalStateObj = {
+  isValid: false,
+  values: {},
+  touched: {},
+  errors: {}
+}
+
 function App() {
   const [tBVal, setTBVal] = useState("");
   const [editVal, setEditVal] = useState({ key: NaN, value: "" });
+  const [globalStateVal, setGlobalStateVal] = useState(globalStateObj);
   const [state, dispatch] = useReducer(reducer, reducerObj);
 
   useEffect(() => {
     dispatch({
       type: AC.SETDATA, value: arr,
-      key: editVal.key
     })
     return () => {
       dispatch({
         type: AC.SETDATA,
-        value: [],
-        key: editVal.key,
+        value: []
       });
     };
   }, []);
 
   const addToList = () => {
-    if (tBVal.length > 0) {
+    let textboxVal = globalStateVal.values["taskbox"].value;
+    if (!!textboxVal && textboxVal.length > 0) {
       dispatch({
         type: AC.ADD,
-        value: tBVal,
-        key: editVal.key,
+        value: textboxVal
       });
       setTBVal("");
     }
@@ -82,6 +89,18 @@ function App() {
     setEditVal({key: NaN, value: ''})
   };
 
+  const setGlobalStateValFn = (e: ChangeEvent<HTMLInputElement>) => {
+      setGlobalStateVal({
+        ...globalStateVal,
+        values: {
+          ...globalStateVal.values,
+          [e.target.attributes[2].value]: {
+            value: e.target.value
+          }
+        },
+      });
+  };
+
   const formHandler = (e: React.FormEvent) => {
     e.preventDefault();
     let searchVal: any = document.getElementById("q")
@@ -115,8 +134,7 @@ function App() {
             type="textbox"
             placeholder="Enter new task"
             name="taskbox"
-            value={tBVal}
-            onChange={(e) => setTBVal(e.target.value)}
+            onChange={setGlobalStateValFn}
           />
         </div>
         <div className="col">
@@ -129,8 +147,7 @@ function App() {
             type="textbox"
             placeholder="Edit Task Value"
             name="editbox"
-            value={editVal.value}
-            onChange={(e) => setEditVal({ ...editVal, value: e.target.value })}
+            onChange={setGlobalStateValFn}
           />
         </div>
         <div className="col">
@@ -147,61 +164,46 @@ function App() {
       </div>
       <div className="row">
         <div className="column">
-          {state.todos.map(
-            (
-              val: string,
-              key: number
-            ) => {
-              return (
-                <div key={`keyR${key}`} className="">
-                  <div className="">
-                    <label key={`key${key}`}>
-                      No. {key + 1} : {val}{" "}
-                    </label>
-                    <button onClick={() => getEditValue(key)}>!</button>
-                    <button onClick={() => completeToDo(key)}>√</button>
-                    <button onClick={() => removeToDo(key)}>X</button>
-                  </div>
+          {state.todos.map((val: string, key: number) => {
+            return (
+              <div key={`keyR${key}`} className="">
+                <div className="">
+                  <label key={`key${key}`}>
+                    No. {key + 1} : {val}{" "}
+                  </label>
+                  <button onClick={() => getEditValue(key)}>!</button>
+                  <button onClick={() => completeToDo(key)}>√</button>
+                  <button onClick={() => removeToDo(key)}>X</button>
                 </div>
-              );
-            }
-          )}
+              </div>
+            );
+          })}
         </div>
         <div className="column">
-          {state.completed.map(
-            (
-              val: string,
-              key: number
-            ) => {
-              return (
-                <div key={`keyR${key}`} className="">
-                  <div className="">
-                    <label key={`key${key}`}>
-                      No. {key + 1} : {val}{" "}
-                    </label>
-                  </div>
+          {state.completed.map((val: string, key: number) => {
+            return (
+              <div key={`keyR${key}`} className="">
+                <div className="">
+                  <label key={`key${key}`}>
+                    No. {key + 1} : {val}{" "}
+                  </label>
                 </div>
-              );
-            }
-          )}
+              </div>
+            );
+          })}
         </div>
         <div className="column">
-          {state.filterdData.map(
-            (
-              val:string,
-              key: number
-            ) => {
-              return (
-                <div key={`keyR${key}`} className="">
-                  <div className="">
-                    <label key={`key${key}`}>
-                      No. {key + 1} : {val}{" "}
-                    </label>
-                  </div>
+          {state.filterdData.map((val: string, key: number) => {
+            return (
+              <div key={`keyR${key}`} className="">
+                <div className="">
+                  <label key={`key${key}`}>
+                    No. {key + 1} : {val}{" "}
+                  </label>
                 </div>
-              );
-            }
-          )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

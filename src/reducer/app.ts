@@ -20,9 +20,11 @@ export const reducer = (state: IReducerObj, action: IActionObj): IReducerObj => 
       break;
     case "EDIT":
       if (!!action.value && typeof action.value === "string") {
-        let key: number | string = action.key;
-        if (typeof key === "string") key = parseInt(key);
-        state.todos[key] = action.value;
+        if(!!action.key){
+          let key: number | string = action.key;
+          if (typeof key === "string") key = parseInt(key);
+          state.todos[key] = action.value;
+        }
       }
 
       returnObj = {
