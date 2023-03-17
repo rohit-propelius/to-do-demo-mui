@@ -23,8 +23,6 @@ let globalStateObj : IGlobalStateObj = {
 }
 
 function App() {
-  const [tBVal, setTBVal] = useState("");
-  const [editVal, setEditVal] = useState({ key: NaN, value: "" });
   const [globalStateVal, setGlobalStateVal] = useState(globalStateObj);
   const [state, dispatch] = useReducer(reducer, reducerObj);
 
@@ -47,7 +45,7 @@ function App() {
         type: AC.ADD,
         value: textboxVal
       });
-      setTBVal("");
+      globalStateVal.values = {};
     }
   };
 
@@ -56,7 +54,7 @@ function App() {
       ...globalStateVal,
       values: {
         ...globalStateVal.values,
-        ["editbox"]:{
+        "editbox":{
           key: key,
           value: state.todos[key]
         }
@@ -67,7 +65,7 @@ function App() {
   const editToDo = () => {
     let val = globalStateVal.values['editbox'];
     
-    if(val.key != undefined){
+    if(val.key !== undefined){
       if(!!val.value)
         dispatch({ type: AC.EDIT, key: val.key, value: val.value });
       else 

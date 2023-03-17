@@ -3,6 +3,7 @@ export const filterFun = (arr: any[], findVal: any) => {
     let regEx = new RegExp(`${findVal}`, "gi");
     let matchVal = val.match(regEx);
     if (!!matchVal) return val;
+    else return false
   });
   return filter;
 };

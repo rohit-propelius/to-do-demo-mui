@@ -1,6 +1,5 @@
 import { filterFun } from "../assests/app";
 
-
 export const reducer = (state: IReducerObj, action: IActionObj): IReducerObj => {
   let returnObj: IReducerObj = { ...state };
   switch (action.type) {
@@ -20,7 +19,7 @@ export const reducer = (state: IReducerObj, action: IActionObj): IReducerObj => 
       break;
     case "EDIT":
       if (!!action.value && typeof action.value === "string") {
-        if(action.key!= undefined){
+        if(action.key!== undefined){
           let key: number = action.key;
           state.todos[key] = action.value;
         }
