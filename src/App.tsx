@@ -52,15 +52,29 @@ function App() {
   };
 
   const getEditValue = (key: number) => {
-    setEditVal({
-      key: key,
-      value: state.todos[key]
+    setGlobalStateVal({
+      ...globalStateVal,
+      values: {
+        ...globalStateVal.values,
+        ["editbox"]:{
+          key: key,
+          value: state.todos[key]
+        }
+      }
     });
   };
 
   const editToDo = () => {
-    let val = editVal;
-    dispatch({type: AC.EDIT, key: val.key, value: val.value})
+    let val = globalStateVal.values['editbox'];
+    
+    if(val.key != undefined){
+      if(!!val.value)
+        dispatch({ type: AC.EDIT, key: val.key, value: val.value });
+      else 
+        console.error('Empty Value Found for Edit!')
+    } else {
+      console.error('no element to edit found'); 
+    }
   };
 
   const completeToDo = (key: number) => {
@@ -95,8 +109,9 @@ function App() {
         values: {
           ...globalStateVal.values,
           [e.target.attributes[2].value]: {
-            value: e.target.value
-          }
+            ...globalStateVal.values[e.target.attributes[2].value],
+            value: e.target.value,
+          },
         },
       });
   };
@@ -147,6 +162,7 @@ function App() {
             type="textbox"
             placeholder="Edit Task Value"
             name="editbox"
+            value={globalStateVal.values["editbox"]?.value || ''}
             onChange={setGlobalStateValFn}
           />
         </div>
