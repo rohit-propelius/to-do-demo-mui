@@ -122,6 +122,7 @@ function App() {
 
   return (
     <div className="App">
+      <a href={`/dashboard`}>Dashboard</a>
       <h1>To Do App MUI</h1>
       <div className="row">
         <div className="column">
@@ -142,7 +143,7 @@ function App() {
             type="textbox"
             placeholder="Enter new task"
             name="taskbox"
-            value={globalStateVal.values["taskbox"]?.value || ''}
+            value={globalStateVal.values["taskbox"]?.value || ""}
             onChange={setGlobalStateValFn}
           />
         </div>
@@ -156,7 +157,7 @@ function App() {
             type="textbox"
             placeholder="Edit Task Value"
             name="editbox"
-            value={globalStateVal.values["editbox"]?.value || ''}
+            value={globalStateVal.values["editbox"]?.value || ""}
             onChange={setGlobalStateValFn}
           />
         </div>

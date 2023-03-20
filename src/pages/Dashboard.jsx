@@ -1,12 +1,11 @@
 import React from 'react';
   
 function Dashboard (){
- return <address>
-            You can find us here:<br />
-            GeeksforGeeks<br />
-            5th & 6th Floor, Royal Kapsons, A- 118, <br />
-            Sector- 136, Noida, Uttar Pradesh (201305)
-        </address>
+ return (
+    <div>
+        This is Dashboard
+    </div>
+ )
 }
   
 export default Dashboard;
