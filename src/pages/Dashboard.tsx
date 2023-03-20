@@ -103,7 +103,7 @@ function Dashboard (){
                   </InputAdornment>
                 ),
               }}
-              variant="standard"
+              variant="outlined"
             />
           </Toolbar>
         </AppBar>
