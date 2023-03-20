@@ -19,3 +19,18 @@
   flex: 1;
   /* distributes space on the line equally among items */
 }
+
+.menuSliderContainer {
+  width: 250;
+  background-color: "#511";
+  height: "100%";
+}
+
+.avatar {
+  margin: "0.5rem auto";
+  padding: "1rem";
+}
+
+.listItem {
+  color: "tan"
+}
