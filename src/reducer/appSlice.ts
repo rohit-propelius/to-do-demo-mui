@@ -100,8 +100,8 @@ export const appSlice = createSlice({
       state.todos = state.todos.filter((val: string, key: number)=> key!== action.payload.key)
     },
     editTask: (state, action: TAction)=> {
-      if(action.payload.value && action.payload.value === 'string'){
-        if (!!action.payload.key) {
+      if(action.payload.value && typeof action.payload.value === 'string'){
+        if (action.payload.key !== undefined ) {
           state.todos[action.payload.key] = action.payload.value;
         }
       }

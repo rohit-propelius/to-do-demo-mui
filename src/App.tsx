@@ -40,8 +40,6 @@ function App() {
   const { reducerValues: rV } = useAppSelector(stateValues);
   const dispatch = useAppDispatch()
 
-  console.log("stateValue :: :: :: ", rV);
-
   useEffect(() => {
     dispatch({
       type: AC.SETDATA, value: arr,
@@ -82,7 +80,7 @@ function App() {
 
   const editToDo = () => {
     let val = globalStateVal.values['editbox'];
-    
+
     if(val.key !== undefined){
       if(!!val.value)
         // dispatch({ type: AC.EDIT, key: val.key, value: val.value });
