@@ -107,14 +107,22 @@ export const appSlice = createSlice({
       }
     },
     completeTask: (state, action: TAction)=> {
-      if(!!action.payload.key)
-        state.completed.push(state.todos[action.payload.key])  
+      if(action.payload.key != undefined){
+        state.completed.push(state.todos[action.payload.key]);
+        state.todos = state.todos.filter(
+          (val: string, key: number) => key !== action.payload.key
+        );
+      } 
     },
     filterTask: (state, action: TAction)=> {
       state.filterdData = filterFun(state.todos, action.payload.value)
     },
     removeAllTasks: (state) => {
-      state = initialState;
+      // state = initialState;
+      state.completed= []
+      state.todos= arr
+      state.filterdData= []
+      state.count = 0
     },
     setData: (state) => {
       state.todos = arr

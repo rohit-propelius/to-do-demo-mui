@@ -15,3 +15,10 @@ export enum ACTIONS {
   "REMOVEALL" = "REMOVEALL",
   "FILTER" = "FILTER"
 }
+
+export const globalStateObj: IGlobalStateObj = {
+  isValid: false,
+  values: {},
+  touched: {},
+  errors: {},
+};

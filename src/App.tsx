@@ -1,12 +1,10 @@
 import React, {
   ChangeEvent,
   useEffect,
-  useReducer,
   useState,
 } from "react";
 import "./App.css";
-import { arr, ACTIONS as AC } from "./data/data";
-import { reducer } from "./reducer/app";
+import { arr, ACTIONS as AC, globalStateObj } from "./data/data";
 import {
   addTask,
   removeAllTasks,
@@ -14,29 +12,12 @@ import {
   editTask,
   completeTask,
   filterTask,
-  setData,
   stateValues
 } from "./reducer/appSlice";
 import { useAppSelector, useAppDispatch } from "./assests/hooks/hooks";
 
-
-let reducerObj: IReducerObj = {
-  count: 0,
-  todos: [],
-  completed: [],
-  filterdData: [],
-};
-
-let globalStateObj : IGlobalStateObj = {
-  isValid: false,
-  values: {},
-  touched: {},
-  errors: {}
-}
-
 function App() {
   const [globalStateVal, setGlobalStateVal] = useState(globalStateObj);
-  // const [state, dispatch] = useReducer(reducer, reducerObj);
   const { reducerValues: rV } = useAppSelector(stateValues);
   const dispatch = useAppDispatch()
 
@@ -53,16 +34,12 @@ function App() {
   }, []);
 
   const addToList = () => {
-    let textboxVal = globalStateVal.values["taskbox"].value;
+    let textboxVal = globalStateVal.values["taskbox"]?.value;
     if (!!textboxVal && textboxVal.length > 0) {
-      // dispatch({
-      //   type: AC.ADD,
-      //   value: textboxVal
-      // });
       dispatch(addTask({ value: textboxVal }))
-      
       globalStateVal.values = {};
-    }
+    } else 
+      console.error('Empty Value in Add Task Box!')
   };
 
   const getEditValue = (key: number) => {
@@ -83,7 +60,6 @@ function App() {
 
     if(val.key !== undefined){
       if(!!val.value)
-        // dispatch({ type: AC.EDIT, key: val.key, value: val.value });
         dispatch(editTask({key: val.key, value: val.value}))
         else 
         console.error('Empty Value Found for Edit!')
@@ -93,26 +69,14 @@ function App() {
   };
 
   const completeToDo = (key: number) => {
-    // dispatch({
-    //   type: AC.COMPLETE,
-    //   value: key,
-    //   key: key,
-    // });
     dispatch(completeTask({value: key, key: key}))
   };
 
   const removeToDo = (key: number) => {
-    // dispatch({
-    //   type: AC.REMOVE,
-    //   key: key,
-    // });
     dispatch(removeTask({key: key}))
   };
 
   const RemoveFromList = () => {
-    // dispatch({
-    //   type: AC.REMOVEALL
-    // });
     dispatch(removeAllTasks());
     globalStateVal.values = {}
   };
@@ -134,10 +98,6 @@ function App() {
     e.preventDefault();
     let searchVal: any = document.getElementById("q")
     if (!!searchVal) searchVal = searchVal.value
-    // dispatch({
-    //   type: AC.FILTER,
-    //   value: searchVal
-    // });
     dispatch(filterTask({value: searchVal}))
   };
 
