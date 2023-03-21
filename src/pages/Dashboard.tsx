@@ -11,7 +11,28 @@ import {
 } from "../reducer/appSlice";
 import { useAppSelector, useAppDispatch } from "../assests/hooks/hooks";
 
-import { Box, Typography, AppBar, Toolbar, IconButton, Drawer, List, ListItemButton,ListItemIcon, ListItemText, Avatar, Divider, TextField, InputAdornment} from '@mui/material';
+import {
+  Box,
+  Typography,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Avatar,
+  Divider,
+  TextField,
+  InputAdornment,
+  Card,
+  Paper,
+  CardHeader,
+  CardContent,
+  Grid,
+  Button
+} from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { Menu, Home } from "@mui/icons-material";
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -22,26 +43,46 @@ import '../App.css';
 
 // Make Style Hooks for particular Page
 const useStyles = makeStyles((theme) => ({
-    box:{
-        backgroundColor:'black',
-        width:'100vw',
-        height:'100%',
-    },
-    menuSliderContainer: {
-        width: 250,
-        background: "#a3a3a3",
-        height: "100%"
-    },
-    avatar: {
-        margin: "0.5rem auto",
-        padding: "1rem",
-    },
-    listItem: {
-        color: "tan"
-    },
-    wrapper: {
-      padding: "1rem"
-    }
+  box: {
+    backgroundColor: "black",
+    width: "100vw",
+    height: "100%",
+  },
+  menuSliderContainer: {
+    width: 250,
+    background: "#a3a3a3",
+    height: "100%",
+  },
+  avatar: {
+    margin: "0.5rem auto",
+    padding: "1rem",
+  },
+  listItem: {
+    color: "tan",
+  },
+  wrapper: {
+    padding: "1rem",
+  },
+  rootCard: {
+    padding: "1rem",
+    background: "#a3a3a3",
+    borderRadius: "10px",
+  },
+  listItems: {
+    padding: "1rem",
+    background: "white",
+    borderRadius: "1",
+  },
+  cardContent: {
+    padding: "1rem",
+    display: "grid",
+    columnGap: "1rem",
+    rowGap: "1rem",
+    gridTemplateColumns: "repeat(3, 1fr)",
+  },
+  actionButtons: {
+    minWidth: "0px"
+  }
 }));
 
 function Dashboard (){
@@ -209,66 +250,80 @@ function Dashboard (){
         </Toolbar>
       </AppBar>
       <Box className={classes.wrapper}>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
-        <Typography variant="h3" color={"white"}>
-          hello darling
-        </Typography>
+        <Card
+          className={classes.rootCard}
+          sx={{ backgroundColor: "#a3a3a3 !important" }}
+        >
+          <CardHeader title="Tasks To Do" />
+          <Divider></Divider>
+          <CardContent className={classes.cardContent}>
+            {rV.todos.map((val, key) => {
+              return (
+                <Grid container>
+                  <Grid xs={12} sm={12} md={12} lg={12}>
+                    <Paper className={classes.listItems} variant="outlined">
+                      <Grid container>
+                        <Grid xs={8} sm={8} md={8} lg={8}>
+                          <Typography
+                            variant="h6"
+                            sx={{
+                              height: "100%",
+                              display: "flex",
+                              alignItems: "center",
+                              fontSize: "16px",
+                            }}
+                          >
+                            {val}
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          xs={4}
+                          sm={4}
+                          md={4}
+                          lg={4}
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Button
+                            sx={{ minWidth: "0px" }}
+                            onClick={() => getEditValue(key)}
+                          >
+                            !
+                          </Button>
+                          <Button
+                            sx={{ minWidth: "0px" }}
+                            onClick={() => completeToDo(key)}
+                          >
+                            √
+                          </Button>
+                          <Button
+                            sx={{ minWidth: "0px" }}
+                            onClick={() => removeToDo(key)}
+                          >
+                            X
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </Paper>
+                  </Grid>
+                </Grid>
+              );
+            })}
+          </CardContent>
+        </Card>
       </Box>
     </Box>
   );
 }
 
 export default Dashboard;
+{/* <Grid xs={12} sm={12} md={12} lg={12}>
+  <Grid container>
+    <Grid xs={8} sm={8} md={8} lg={8}></Grid>
+    <Grid xs={4} sm={4} md={4} lg={4}>
+      X
+    </Grid>
+  </Grid>
+</Grid>; */}
