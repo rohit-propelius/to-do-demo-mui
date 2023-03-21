@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
   },
   rootCard: {
     padding: "1rem",
+    margin: "1rem",
     background: "#a3a3a3",
     borderRadius: "10px",
   },
@@ -250,6 +251,46 @@ function Dashboard (){
         </Toolbar>
       </AppBar>
       <Box className={classes.wrapper}>
+        {/* START : Add Edit Card */}
+        <Card
+          className={classes.rootCard}
+          sx={{ backgroundColor: "#a3a3a3 !important" }}
+        >
+          <CardHeader title="Add/Edit To Do" />
+          <Divider></Divider>
+          <CardContent
+            className={classes.cardContent}
+            sx={{
+              gridTemplateColumns: "repeat(1, 1fr)",
+            }}
+          >
+            <Grid container>
+              <Grid xs={12} sm={12} md={6} lg={6}>
+                <Paper className={classes.listItems} variant="outlined">
+                  <TextField
+                    id="addTask"
+                    label="Enter Task Value"
+                    variant="standard"
+                    value={globalStateVal.values["taskbox"]?.value || ""}
+                  />
+                </Paper>
+              </Grid>
+              <Grid xs={12} sm={12} md={6} lg={6}>
+                <Paper className={classes.listItems} variant="outlined">
+                  <TextField
+                    id="addTask"
+                    label="Task Edit Value"
+                    variant="standard"
+                    value={globalStateVal.values["editbox"]?.value || ""}
+                  />
+                </Paper>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+        {/* END : Add Edit Card */}
+
+        {/* START : To Dos Card */}
         <Card
           className={classes.rootCard}
           sx={{ backgroundColor: "#a3a3a3 !important" }}
@@ -313,6 +354,40 @@ function Dashboard (){
             })}
           </CardContent>
         </Card>
+        {/* END : To Dos Card */}
+
+        {/* START : Completed Tasks Card */}
+        <Card
+          className={classes.rootCard}
+          sx={{ backgroundColor: "#a3a3a3 !important" }}
+        >
+          <CardHeader title="Completed Tasks" />
+          <Divider></Divider>
+          <CardContent className={classes.cardContent}>
+            {rV.completed.map((val) => {
+              return (
+                <Grid container>
+                  <Grid xs={12} sm={12} md={12} lg={12}>
+                    <Paper className={classes.listItems} variant="outlined">
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          height: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          fontSize: "16px",
+                        }}
+                      >
+                        {val}
+                      </Typography>
+                    </Paper>
+                  </Grid>
+                </Grid>
+              );
+            })}
+          </CardContent>
+        </Card>
+        {/* END : Completed Tasks Card */}
       </Box>
     </Box>
   );
