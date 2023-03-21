@@ -7,6 +7,18 @@ import React, {
 import "./App.css";
 import { arr, ACTIONS as AC } from "./data/data";
 import { reducer } from "./reducer/app";
+import {
+  addTask,
+  removeAllTasks,
+  removeTask,
+  editTask,
+  completeTask,
+  filterTask,
+  setData,
+  stateValues
+} from "./reducer/appSlice";
+import { useAppSelector, useAppDispatch } from "./assests/hooks/hooks";
+
 
 let reducerObj: IReducerObj = {
   count: 0,
@@ -24,7 +36,11 @@ let globalStateObj : IGlobalStateObj = {
 
 function App() {
   const [globalStateVal, setGlobalStateVal] = useState(globalStateObj);
-  const [state, dispatch] = useReducer(reducer, reducerObj);
+  // const [state, dispatch] = useReducer(reducer, reducerObj);
+  const { reducerValues: rV } = useAppSelector(stateValues);
+  const dispatch = useAppDispatch()
+
+  console.log("stateValue :: :: :: ", rV);
 
   useEffect(() => {
     dispatch({
@@ -41,10 +57,12 @@ function App() {
   const addToList = () => {
     let textboxVal = globalStateVal.values["taskbox"].value;
     if (!!textboxVal && textboxVal.length > 0) {
-      dispatch({
-        type: AC.ADD,
-        value: textboxVal
-      });
+      // dispatch({
+      //   type: AC.ADD,
+      //   value: textboxVal
+      // });
+      dispatch(addTask({ value: textboxVal }))
+      
       globalStateVal.values = {};
     }
   };
@@ -56,7 +74,7 @@ function App() {
         ...globalStateVal.values,
         "editbox":{
           key: key,
-          value: state.todos[key]
+          value: rV.todos[key]
         }
       }
     });
@@ -67,8 +85,9 @@ function App() {
     
     if(val.key !== undefined){
       if(!!val.value)
-        dispatch({ type: AC.EDIT, key: val.key, value: val.value });
-      else 
+        // dispatch({ type: AC.EDIT, key: val.key, value: val.value });
+        dispatch(editTask({key: val.key, value: val.value}))
+        else 
         console.error('Empty Value Found for Edit!')
     } else {
       console.error('no element to edit found'); 
@@ -76,24 +95,27 @@ function App() {
   };
 
   const completeToDo = (key: number) => {
-    dispatch({
-      type: AC.COMPLETE,
-      value: key,
-      key: key,
-    });
+    // dispatch({
+    //   type: AC.COMPLETE,
+    //   value: key,
+    //   key: key,
+    // });
+    dispatch(completeTask({value: key, key: key}))
   };
 
   const removeToDo = (key: number) => {
-    dispatch({
-      type: AC.REMOVE,
-      key: key,
-    });
+    // dispatch({
+    //   type: AC.REMOVE,
+    //   key: key,
+    // });
+    dispatch(removeTask({key: key}))
   };
 
   const RemoveFromList = () => {
-    dispatch({
-      type: AC.REMOVEALL
-    });
+    // dispatch({
+    //   type: AC.REMOVEALL
+    // });
+    dispatch(removeAllTasks());
     globalStateVal.values = {}
   };
 
@@ -114,10 +136,11 @@ function App() {
     e.preventDefault();
     let searchVal: any = document.getElementById("q")
     if (!!searchVal) searchVal = searchVal.value
-    dispatch({
-      type: AC.FILTER,
-      value: searchVal
-    });
+    // dispatch({
+    //   type: AC.FILTER,
+    //   value: searchVal
+    // });
+    dispatch(filterTask({value: searchVal}))
   };
 
   return (
@@ -175,7 +198,7 @@ function App() {
       </div>
       <div className="row">
         <div className="column">
-          {state.todos.map((val: string, key: number) => {
+          {rV.todos.map((val: string, key: number) => {
             return (
               <div key={`keyR${key}`} className="">
                 <div className="">
@@ -191,7 +214,7 @@ function App() {
           })}
         </div>
         <div className="column">
-          {state.completed.map((val: string, key: number) => {
+          {rV.completed.map((val: string, key: number) => {
             return (
               <div key={`keyR${key}`} className="">
                 <div className="">
@@ -204,7 +227,7 @@ function App() {
           })}
         </div>
         <div className="column">
-          {state.filterdData.map((val: string, key: number) => {
+          {rV.filterdData.map((val: string, key: number) => {
             return (
               <div key={`keyR${key}`} className="">
                 <div className="">

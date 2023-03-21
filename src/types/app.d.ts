@@ -6,7 +6,7 @@ interface IReducerObj {
 }
 
 interface IActionObj {
-  type: string;
+  type?: string;
   value?: string | {};
   key?: number;
 }
