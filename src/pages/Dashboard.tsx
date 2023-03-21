@@ -40,6 +40,7 @@ import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import SearchIcon from '@mui/icons-material/Search';
 import '../App.css';
+import { log } from "console";
 
 // Make Style Hooks for particular Page
 const useStyles = makeStyles((theme) => ({
@@ -89,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
 function Dashboard (){
   // Start : App.tsx Code
   const [globalStateVal, setGlobalStateVal] = useState(globalStateObj);
+  console.log('globalStateValue :: :: :: ', globalStateVal);
   const { reducerValues: rV } = useAppSelector(stateValues);
   const dispatch = useAppDispatch();
 
@@ -151,6 +153,7 @@ function Dashboard (){
   };
 
   const setGlobalStateValFn = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log('E :: :: ::: :',  e.target.value)
     setGlobalStateVal({
       ...globalStateVal,
       values: {
@@ -265,22 +268,26 @@ function Dashboard (){
             }}
           >
             <Grid container>
-              <Grid xs={12} sm={12} md={6} lg={6}>
+              <Grid item={true} xs={12} sm={12} md={6} lg={6}>
                 <Paper className={classes.listItems} variant="outlined">
                   <TextField
                     id="addTask"
                     label="Enter Task Value"
                     variant="standard"
+                    name="taskbox"
+                    onChange={setGlobalStateValFn}
                     value={globalStateVal.values["taskbox"]?.value || ""}
                   />
                 </Paper>
               </Grid>
-              <Grid xs={12} sm={12} md={6} lg={6}>
+              <Grid item={true} xs={12} sm={12} md={6} lg={6}>
                 <Paper className={classes.listItems} variant="outlined">
                   <TextField
                     id="addTask"
                     label="Task Edit Value"
                     variant="standard"
+                    name="editbox"
+                    onChange={setGlobalStateValFn}
                     value={globalStateVal.values["editbox"]?.value || ""}
                   />
                 </Paper>
@@ -301,10 +308,10 @@ function Dashboard (){
             {rV.todos.map((val, key) => {
               return (
                 <Grid container>
-                  <Grid xs={12} sm={12} md={12} lg={12}>
+                  <Grid item={true} xs={12} sm={12} md={12} lg={12}>
                     <Paper className={classes.listItems} variant="outlined">
                       <Grid container>
-                        <Grid xs={8} sm={8} md={8} lg={8}>
+                        <Grid item={true} xs={8} sm={8} md={8} lg={8}>
                           <Typography
                             variant="h6"
                             sx={{
@@ -317,7 +324,7 @@ function Dashboard (){
                             {val}
                           </Typography>
                         </Grid>
-                        <Grid
+                        <Grid item={true}
                           xs={4}
                           sm={4}
                           md={4}
@@ -367,7 +374,7 @@ function Dashboard (){
             {rV.completed.map((val) => {
               return (
                 <Grid container>
-                  <Grid xs={12} sm={12} md={12} lg={12}>
+                  <Grid item={true} xs={12} sm={12} md={12} lg={12}>
                     <Paper className={classes.listItems} variant="outlined">
                       <Typography
                         variant="h6"
