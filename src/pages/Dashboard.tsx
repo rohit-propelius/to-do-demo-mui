@@ -240,7 +240,9 @@ function Dashboard (){
             {sideList()}
           </Drawer>
           <TextField
-            id="input-with-icon-textfield"
+            id="q"
+            name="q"
+            onChange={(e) => dispatch(filterTask({value: e.target.value}))}
             placeholder="Find task..."
             InputProps={{
               startAdornment: (
@@ -407,6 +409,39 @@ function Dashboard (){
           </CardContent>
         </Card>
         {/* END : Completed Tasks Card */}
+
+        {/* START : Filtered Tasks Card */}
+        <Card
+          className={classes.rootCard}
+          sx={{ backgroundColor: "#a3a3a3 !important" }}
+        >
+          <CardHeader title="Filtered Tasks" />
+          <Divider></Divider>
+          <CardContent className={classes.cardContent}>
+            {rV.filterdData.map((val) => {
+              return (
+                <Grid container>
+                  <Grid item={true} xs={12} sm={12} md={12} lg={12}>
+                    <Paper className={classes.listItems} variant="outlined">
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          height: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          fontSize: "16px",
+                        }}
+                      >
+                        {val}
+                      </Typography>
+                    </Paper>
+                  </Grid>
+                </Grid>
+              );
+            })}
+          </CardContent>
+        </Card>
+        {/* END : Filtered Tasks Card */}
       </Box>
     </Box>
   );
