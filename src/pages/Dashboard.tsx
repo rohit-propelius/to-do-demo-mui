@@ -90,22 +90,8 @@ const useStyles = makeStyles((theme) => ({
 function Dashboard (){
   // Start : App.tsx Code
   const [globalStateVal, setGlobalStateVal] = useState(globalStateObj);
-  console.log('globalStateValue :: :: :: ', globalStateVal);
   const { reducerValues: rV } = useAppSelector(stateValues);
   const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: AC.SETDATA,
-  //     value: arr,
-  //   });
-  //   return () => {
-  //     dispatch({
-  //       type: AC.SETDATA,
-  //       value: [],
-  //     });
-  //   };
-  // }, []);
 
   const addToList = () => {
     let textboxVal = globalStateVal.values["taskbox"]?.value;
@@ -153,7 +139,6 @@ function Dashboard (){
   };
 
   const setGlobalStateValFn = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('E :: :: ::: :',  e.target.value)
     setGlobalStateVal({
       ...globalStateVal,
       values: {
