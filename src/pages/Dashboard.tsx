@@ -31,7 +31,8 @@ import {
   CardHeader,
   CardContent,
   Grid,
-  Button
+  Button,
+  Link
 } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { Menu, Home } from "@mui/icons-material";
@@ -204,6 +205,11 @@ function Dashboard (){
       listText: "Remove All",
       url: "/removeall",
     },
+    {
+      listIcon: <DeleteForeverIcon />,
+      listText: "Old Version",
+      url: "/",
+    },
   ];
 
   // function to render sidebar/drawer list items
@@ -217,12 +223,14 @@ function Dashboard (){
       <Divider />
       <List>
         {listItems.map((listItem, index) => (
-          <ListItemButton className={classes.listItem} key={index}>
-            <ListItemIcon className={classes.listItem}>
-              {listItem.listIcon}
-            </ListItemIcon>
-            <ListItemText primary={listItem.listText} />
-          </ListItemButton>
+          <Link href={listItem.url}>
+            <ListItemButton className={classes.listItem} key={index}>
+              <ListItemIcon className={classes.listItem}>
+                {listItem.listIcon}
+              </ListItemIcon>
+              <ListItemText primary={listItem.listText} />
+            </ListItemButton>
+          </Link>
         ))}
       </List>
     </Box>
