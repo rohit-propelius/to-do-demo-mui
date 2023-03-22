@@ -15,6 +15,7 @@ import {
   stateValues
 } from "./reducer/appSlice";
 import { useAppSelector, useAppDispatch } from "./assests/hooks/hooks";
+import { Link } from "react-router-dom";
 
 function App() {
   const [globalStateVal, setGlobalStateVal] = useState(globalStateObj);
@@ -103,7 +104,8 @@ function App() {
 
   return (
     <div className="App">
-      <a href={`/dashboard`}>Dashboard</a>
+      {/* <Link href={`/dashboard`}>Dashboard</Link> */}
+      <Link to={'/dashboard'}>Dashboard</Link>
       <h1>To Do App MUI</h1>
       <div className="row">
         <div className="column">

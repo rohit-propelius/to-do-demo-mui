@@ -32,7 +32,6 @@ import {
   CardContent,
   Grid,
   Button,
-  Link
 } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { Menu, Home } from "@mui/icons-material";
@@ -41,7 +40,7 @@ import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import SearchIcon from '@mui/icons-material/Search';
 import '../App.css';
-import { log } from "console";
+import { Link } from "react-router-dom";
 
 // Make Style Hooks for particular Page
 const useStyles = makeStyles((theme) => ({
@@ -95,18 +94,18 @@ function Dashboard (){
   const { reducerValues: rV } = useAppSelector(stateValues);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch({
-      type: AC.SETDATA,
-      value: arr,
-    });
-    return () => {
-      dispatch({
-        type: AC.SETDATA,
-        value: [],
-      });
-    };
-  }, []);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: AC.SETDATA,
+  //     value: arr,
+  //   });
+  //   return () => {
+  //     dispatch({
+  //       type: AC.SETDATA,
+  //       value: [],
+  //     });
+  //   };
+  // }, []);
 
   const addToList = () => {
     let textboxVal = globalStateVal.values["taskbox"]?.value;
@@ -223,7 +222,7 @@ function Dashboard (){
       <Divider />
       <List>
         {listItems.map((listItem, index) => (
-          <Link href={listItem.url}>
+          <Link to={listItem.url}>
             <ListItemButton className={classes.listItem} key={index}>
               <ListItemIcon className={classes.listItem}>
                 {listItem.listIcon}
