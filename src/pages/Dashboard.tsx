@@ -278,6 +278,12 @@ function Dashboard (){
                     onChange={setGlobalStateValFn}
                     value={globalStateVal.values["taskbox"]?.value || ""}
                   />
+                  <Button
+                    sx={{ minWidth: "0px" }}
+                    onClick={addToList}
+                  >
+                    Add Task
+                  </Button>
                 </Paper>
               </Grid>
               <Grid item={true} xs={12} sm={12} md={6} lg={6}>
@@ -290,6 +296,12 @@ function Dashboard (){
                     onChange={setGlobalStateValFn}
                     value={globalStateVal.values["editbox"]?.value || ""}
                   />
+                  <Button
+                    sx={{ minWidth: "0px" }}
+                    onClick={editToDo}
+                  >
+                    Edit Task
+                  </Button>
                 </Paper>
               </Grid>
             </Grid>
